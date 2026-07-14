@@ -50,7 +50,7 @@ export const About: React.FC = () => {
         
         {/* Top: Introduction */}
         <div className="grid lg:grid-cols-12 gap-xxxl items-center">
-          <div className="lg:col-span-7 space-y-xl text-left">
+          <div className="lg:col-span-7 space-y-xl text-left reveal-left">
             <div className="inline-block px-lg py-1 bg-primary/10 dark:bg-primary/20 rounded-full">
               <span className="text-primary dark:text-coral-red font-label-caps text-label-caps uppercase tracking-wider">
                 Our Mission
@@ -69,7 +69,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* Top Right: App Showcase Mockups (Triple Phone Overlapping Carousel) */}
-          <div className="lg:col-span-5 flex flex-col justify-center items-center h-[480px] md:h-[560px] pt-lg lg:pt-0 relative overflow-hidden">
+          <div className="lg:col-span-5 flex flex-col justify-center items-center h-[480px] md:h-[560px] pt-lg lg:pt-0 relative overflow-hidden reveal-right">
             <div className="relative w-full h-[380px] md:h-[460px] flex justify-center items-center">
               {/* Left phone */}
               <div className="absolute w-[130px] md:w-[160px] aspect-[9/20] z-10 -translate-x-[60px] md:-translate-x-[80px] -rotate-12 opacity-40 transition-all duration-500 ease-in-out pointer-events-none">
@@ -118,7 +118,7 @@ export const About: React.FC = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-lg pt-lg">
           
           {/* Card 1: Voice First */}
-          <div className="bg-white dark:bg-slate-950 p-xl rounded-2xl border border-border-light dark:border-slate-850 shadow-sm hover:shadow-md hover:border-primary/30 transition-all text-left space-y-md group">
+          <div className="bg-white dark:bg-slate-950 p-xl rounded-2xl border border-border-light dark:border-slate-850 shadow-sm hover:shadow-md hover:border-primary/30 transition-all text-left space-y-md group reveal-stagger">
             <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary dark:text-coral-red group-hover:bg-primary group-hover:text-white transition-colors">
               <span className="material-symbols-outlined text-2xl">translate</span>
             </div>
@@ -129,7 +129,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* Card 2: Offline-First */}
-          <div className="bg-white dark:bg-slate-950 p-xl rounded-2xl border border-border-light dark:border-slate-850 shadow-sm hover:shadow-md hover:border-honey-gold/30 transition-all text-left space-y-md group">
+          <div className="bg-white dark:bg-slate-950 p-xl rounded-2xl border border-border-light dark:border-slate-850 shadow-sm hover:shadow-md hover:border-honey-gold/30 transition-all text-left space-y-md group reveal-stagger">
             <div className="w-12 h-12 rounded-xl bg-honey-gold/10 dark:bg-honey-gold/20 flex items-center justify-center text-honey-gold group-hover:bg-honey-gold group-hover:text-slate-950 transition-colors">
               <span className="material-symbols-outlined text-2xl">signal_cellular_nodata</span>
             </div>
@@ -140,7 +140,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* Card 3: Privacy Lock */}
-          <div className="bg-white dark:bg-slate-950 p-xl rounded-2xl border border-border-light dark:border-slate-850 shadow-sm hover:shadow-md hover:border-success-mint/30 transition-all text-left space-y-md group">
+          <div className="bg-white dark:bg-slate-950 p-xl rounded-2xl border border-border-light dark:border-slate-850 shadow-sm hover:shadow-md hover:border-success-mint/30 transition-all text-left space-y-md group reveal-stagger">
             <div className="w-12 h-12 rounded-xl bg-success-mint/10 dark:bg-success-mint/20 flex items-center justify-center text-success-mint group-hover:bg-success-mint group-hover:text-white transition-colors">
               <span className="material-symbols-outlined text-2xl">shield</span>
             </div>
@@ -151,7 +151,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* Card 4: Proactive Reminders */}
-          <div className="bg-white dark:bg-slate-950 p-xl rounded-2xl border border-border-light dark:border-slate-850 shadow-sm hover:shadow-md hover:border-deep-indigo/30 transition-all text-left space-y-md group">
+          <div className="bg-white dark:bg-slate-950 p-xl rounded-2xl border border-border-light dark:border-slate-850 shadow-sm hover:shadow-md hover:border-deep-indigo/30 transition-all text-left space-y-md group reveal-stagger">
             <div className="w-12 h-12 rounded-xl bg-deep-indigo/10 dark:bg-deep-indigo/20 flex items-center justify-center text-deep-indigo dark:text-primary-fixed-dim group-hover:bg-deep-indigo group-hover:text-white dark:group-hover:bg-primary dark:group-hover:text-white transition-colors">
               <span className="material-symbols-outlined text-2xl">phone_in_talk</span>
             </div>

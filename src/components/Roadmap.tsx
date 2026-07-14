@@ -149,7 +149,7 @@ export const Roadmap: React.FC = () => {
         
         {/* Header with Navigation Controls */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-xxxl gap-lg text-center md:text-left">
-          <div className="max-w-xl mx-auto md:mx-0 space-y-xs">
+          <div className="max-w-xl mx-auto md:mx-0 space-y-xs reveal-left">
             <div className="inline-block px-lg py-1 bg-primary/10 dark:bg-primary/20 rounded-full">
               <span className="text-primary dark:text-coral-red font-label-caps text-label-caps uppercase tracking-wider">
                 Roadmap
@@ -164,7 +164,7 @@ export const Roadmap: React.FC = () => {
           </div>
 
           {/* Slider Controls */}
-          <div className="flex gap-sm mx-auto md:mx-0 z-10">
+          <div className="flex gap-sm mx-auto md:mx-0 z-10 reveal-right">
             <button 
               onClick={handlePrev}
               className="w-12 h-12 rounded-full border border-border-light dark:border-slate-800 bg-white dark:bg-slate-950 flex items-center justify-center hover:bg-surface-container dark:hover:bg-slate-900 text-on-surface dark:text-white transition-colors active:scale-95"
@@ -183,7 +183,7 @@ export const Roadmap: React.FC = () => {
         </div>
 
         {/* Promotional Video Player */}
-        <div className="max-w-4xl mx-auto mb-xxxl relative group rounded-3xl border border-border-light dark:border-slate-850 bg-slate-50 dark:bg-slate-900/40 p-2 md:p-3 shadow-xl transition-all duration-300 hover:shadow-2xl">
+        <div className="max-w-4xl mx-auto mb-xxxl relative group rounded-3xl border border-border-light dark:border-slate-850 bg-slate-50 dark:bg-slate-900/40 p-2 md:p-3 shadow-xl transition-all duration-300 hover:shadow-2xl reveal-scale">
           <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-950 shadow-inner">
             <video 
               src={lafinaPromotionalVideo} 
@@ -196,7 +196,7 @@ export const Roadmap: React.FC = () => {
         </div>
 
         {/* Timeline Slider Container */}
-        <div className="relative w-full overflow-hidden py-md">
+        <div className="relative w-full overflow-hidden py-md reveal-bottom">
           {/* Gradients to fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white dark:from-slate-950 to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white dark:from-slate-950 to-transparent z-10 pointer-events-none"></div>

@@ -61,7 +61,7 @@ export const Team: React.FC = () => {
       <div className="max-w-7xl mx-auto px-gutter md:px-xxxl">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-xxxl gap-lg text-center md:text-left">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-xxxl gap-lg text-center md:text-left reveal-left">
           <div className="max-w-xl mx-auto md:mx-0 space-y-xs">
             <div className="inline-block px-lg py-1 bg-primary/10 dark:bg-primary/20 rounded-full">
               <span className="text-primary dark:text-coral-red font-label-caps text-label-caps uppercase tracking-wider">
@@ -79,7 +79,7 @@ export const Team: React.FC = () => {
       </div>
 
       {/* Infinite Horizontal Scrolling Marquee */}
-      <div className="max-w-7xl mx-auto px-gutter md:px-xxxl">
+      <div className="max-w-7xl mx-auto px-gutter md:px-xxxl reveal-bottom">
         <div className="relative w-full overflow-hidden py-md">
           {/* Gradients to fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-surface-container-low dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
