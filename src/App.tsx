@@ -27,6 +27,7 @@ function App() {
       mobile: true,
       reset: false,
       viewFactor: 0.1,
+      cleanup: true,
     });
 
     // Simple fade reveal
