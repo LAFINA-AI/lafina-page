@@ -119,11 +119,6 @@ export const Team: React.FC = () => {
 
                   {/* Gradient Overlay on Hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none"></div>
-                  
-                  {/* Speech bubble indicator / voice icon */}
-                  <div className="absolute top-4 right-4 bg-slate-950/80 backdrop-blur-sm p-2 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="material-symbols-outlined text-[16px] text-white animate-pulse">mic</span>
-                  </div>
                 </div>
 
                 {/* Info */}
