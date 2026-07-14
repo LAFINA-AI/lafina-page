@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import lafinaPromotionalVideo from '../assets/lafina_promotional_video.mp4';
 
 interface Milestone {
   sprint: number;
@@ -10,8 +11,7 @@ interface Milestone {
 
 export const Roadmap: React.FC = () => {
   const [isInView, setIsInView] = useState(false);
-  const [activeSprint, setActiveSprint] = useState<number>(0);
-  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [activeSprint, setActiveSprint] = useState<number>(4);
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -84,8 +84,11 @@ export const Roadmap: React.FC = () => {
   const scrollToCard = (index: number) => {
     if (scrollRef.current) {
       const cardWidth = 320 + 24; // Card width (320) + gap (24)
+      const containerWidth = scrollRef.current.clientWidth || 1000;
+      const targetScroll = (index * cardWidth) - (containerWidth / 2) + (cardWidth / 2);
+      
       scrollRef.current.scrollTo({
-        left: index * cardWidth,
+        left: targetScroll,
         behavior: 'smooth'
       });
     }
@@ -132,15 +135,13 @@ export const Roadmap: React.FC = () => {
     };
   }, []);
 
-  // Autoplay loop: auto scroll every 4 seconds (paused if user is hovering or dragging)
+  // Scroll to active sprint (Sprint 5) on mount
   useEffect(() => {
-    if (isHovered) return;
-    
-    const timer = setInterval(() => {
-      handleNext();
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [activeSprint, isHovered]);
+    const timer = setTimeout(() => {
+      scrollToCard(4);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section id="roadmap" ref={sectionRef} className="scroll-mt-20 py-xxxl bg-white dark:bg-slate-950 transition-colors duration-300 overflow-hidden">
@@ -181,6 +182,19 @@ export const Roadmap: React.FC = () => {
           </div>
         </div>
 
+        {/* Promotional Video Player */}
+        <div className="max-w-4xl mx-auto mb-xxxl relative group rounded-3xl border border-border-light dark:border-slate-850 bg-slate-50 dark:bg-slate-900/40 p-2 md:p-3 shadow-xl transition-all duration-300 hover:shadow-2xl">
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-950 shadow-inner">
+            <video 
+              src={lafinaPromotionalVideo} 
+              controls 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover" 
+            />
+          </div>
+        </div>
+
         {/* Timeline Slider Container */}
         <div className="relative w-full overflow-hidden py-md">
           {/* Gradients to fade edges */}
@@ -190,10 +204,6 @@ export const Roadmap: React.FC = () => {
           <div 
             ref={scrollRef}
             className="flex flex-row gap-xl overflow-x-auto scrollbar-none pb-md scroll-smooth"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onTouchStart={() => setIsHovered(true)}
-            onTouchEnd={() => setIsHovered(false)}
           >
             {milestones.map((item, index) => {
               const isActive = activeSprint === index;

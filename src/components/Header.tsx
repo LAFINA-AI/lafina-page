@@ -10,9 +10,8 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    // Check initial local storage or theme preference
-    const isDarkTheme = localStorage.getItem('theme') === 'dark' || 
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    // Check if theme is explicitly set to dark in localStorage. Default to light.
+    const isDarkTheme = localStorage.getItem('theme') === 'dark';
     
     setIsDark(isDarkTheme);
     if (isDarkTheme) {
@@ -52,6 +51,7 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
           <a href="#about" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Mission</a>
           <a href="#roadmap" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Roadmap</a>
           <a href="#team" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Team</a>
+          <a href="https://lafina-wiki.vercel.app/" target="_blank" rel="noopener noreferrer" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Wiki</a>
         </nav>
 
         {/* Controls and Action */}
@@ -119,6 +119,15 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
               className="font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
             >
               Team
+            </a>
+            <a 
+              href="https://lafina-wiki.vercel.app/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
+            >
+              Wiki
             </a>
           </nav>
           <div className="flex flex-col gap-sm pt-sm">

@@ -6,10 +6,13 @@ import { Roadmap } from './components/Roadmap';
 import { Team } from './components/Team';
 import { Footer } from './components/Footer';
 import { VoiceDemo } from './components/VoiceDemo';
+import { PolicyModal } from './components/PolicyModal';
 import './App.css';
 
 function App() {
   const [isVoiceDemoOpen, setIsVoiceDemoOpen] = useState<boolean>(false);
+  const [isPolicyOpen, setIsPolicyOpen] = useState<boolean>(false);
+  const [policyType, setPolicyType] = useState<'privacy' | 'terms'>('privacy');
 
   const handleOpenVoiceDemo = () => {
     setIsVoiceDemoOpen(true);
@@ -17,6 +20,11 @@ function App() {
 
   const handleCloseVoiceDemo = () => {
     setIsVoiceDemoOpen(false);
+  };
+
+  const handleOpenPolicy = (type: 'privacy' | 'terms') => {
+    setPolicyType(type);
+    setIsPolicyOpen(true);
   };
 
   return (
@@ -40,10 +48,13 @@ function App() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onOpenPolicy={handleOpenPolicy} />
 
       {/* Interactive Voice Call Simulation Modal */}
       <VoiceDemo isOpen={isVoiceDemoOpen} onClose={handleCloseVoiceDemo} />
+
+      {/* Policy & Terms Modal */}
+      <PolicyModal isOpen={isPolicyOpen} onClose={() => setIsPolicyOpen(false)} type={policyType} />
     </div>
   );
 }

@@ -2,7 +2,11 @@ import React from 'react';
 import lafinaLogo from '../assets/lafina_logo.svg';
 import { Soundwave } from './Soundwave';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenPolicy: (type: 'privacy' | 'terms') => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
   return (
     <footer id="download" className="bg-slate-dark text-white py-xxxl border-t border-white/5 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-gutter md:px-xxxl space-y-xxxl">
@@ -27,11 +31,7 @@ export const Footer: React.FC = () => {
             {/* Beta APK Download Container (for the #download anchor) */}
             <div className="pt-sm w-full">
               <a 
-                href="#" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  alert("Beta APK downloads are temporarily closed for internal updates. Please check back soon!");
-                }}
+                href="https://github.com/LAFINA-AI/LAFINA/releases/download/v0.2.0-beta/lafina_v0.2.0_beta.apk" 
                 className="inline-flex items-center gap-sm bg-white text-slate-950 px-lg py-sm rounded-lg font-bold text-caption uppercase hover:bg-slate-200 transition-colors shadow-lg active:scale-95"
               >
                 <span className="material-symbols-outlined text-[16px]">download</span>
@@ -47,17 +47,35 @@ export const Footer: React.FC = () => {
             {/* Column 1: Explore */}
             <div className="flex flex-col items-center md:items-start gap-sm">
               <span className="font-label-caps text-label-caps text-white/40 uppercase tracking-widest font-bold">Explore</span>
-              <a href="#" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">Privacy Policy</a>
-              <a href="#" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">Terms of Service</a>
-              <a href="#" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">Security Architecture</a>
+              <a href="https://lafina-wiki.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">Wiki Portal</a>
+              <a 
+                href="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenPolicy('privacy');
+                }}
+                className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400"
+              >
+                Privacy Policy
+              </a>
+              <a 
+                href="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenPolicy('terms');
+                }}
+                className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400"
+              >
+                Terms of Service
+              </a>
             </div>
             
             {/* Column 2: Socials */}
             <div className="flex flex-col items-center md:items-start gap-sm">
               <span className="font-label-caps text-label-caps text-white/40 uppercase tracking-widest font-bold">Socials</span>
-              <a href="#" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">GitHub Portal</a>
-              <a href="#" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">LinkedIn</a>
-              <a href="#" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">Twitter Dev</a>
+              <a href="https://github.com/LAFINA-AI" target="_blank" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">GitHub</a>
+              {/* <a href="#" target="_blank" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">LinkedIn</a> */}
+              <a href="https://www.facebook.com/lafinaph" target="_blank" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">Facebook Page</a>
             </div>
 
           </div>
