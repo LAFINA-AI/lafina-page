@@ -8,6 +8,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
   const [isDark, setIsDark] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
     // Check if theme is explicitly set to dark in localStorage. Default to light.
@@ -19,6 +20,22 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
     } else {
       document.documentElement.classList.remove('dark');
     }
+
+    // Scroll listener
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check scroll status on mount
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -34,14 +51,28 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-40 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-border-light dark:border-slate-800 shadow-sm transition-colors duration-300">
-      <div className="flex justify-between items-center px-gutter md:px-xxxl py-md max-w-7xl mx-auto">
+    <header 
+      className={`fixed left-1/2 -translate-x-1/2 z-40 transition-all duration-700 ease-in-out overflow-hidden ${
+        isScrolled 
+          ? 'top-4 w-[calc(100%-2rem)] max-w-7xl bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg border border-border-light/80 dark:border-slate-800/80 rounded-2xl md:rounded-full shadow-lg shadow-slate-200/30 dark:shadow-slate-950/50' 
+          : 'top-0 w-full bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-border-light dark:border-slate-800 shadow-sm'
+      }`}
+    >
+      <div 
+        className={`flex justify-between items-center transition-all duration-700 ease-in-out ${
+          isScrolled 
+            ? 'px-md md:px-xl py-sm' 
+            : 'px-gutter md:px-xxxl py-md'
+        } max-w-7xl mx-auto w-full`}
+      >
         
         {/* Brand Logo & Wordmark */}
         <a href="#" className="hover:opacity-95 transition-opacity flex items-center">
           <img 
             src={lafinaLogo} 
-            className="h-8 md:h-10 object-contain transition-all duration-300" 
+            className={`object-contain transition-all duration-700 ease-in-out ${
+              isScrolled ? 'h-7 md:h-8' : 'h-8 md:h-10'
+            }`} 
             alt="LAFINA" 
           />
         </a>
@@ -72,7 +103,9 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
           {/* Quick Demo Button (Visible on medium screens and up) */}
           <button 
             onClick={onTryVoice}
-            className="hidden sm:inline-block px-md py-2 border border-primary text-primary dark:border-honey-gold dark:text-honey-gold hover:bg-primary/5 rounded-lg font-body-lg text-[13px] active:scale-95 transition-all"
+            className={`hidden sm:inline-block border border-primary text-primary dark:border-honey-gold dark:text-honey-gold hover:bg-primary/5 rounded-lg font-body-lg text-[13px] active:scale-95 transition-all duration-700 ease-in-out ${
+              isScrolled ? 'px-sm py-1.5' : 'px-md py-2'
+            }`}
           >
             Voice Simulator
           </button>
@@ -80,7 +113,9 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
           {/* Download Beta Button */}
           <a
             href="https://github.com/LAFINA-AI/LAFINA/releases/download/v0.2.0-beta/lafina_v0.2.0_beta.apk"
-            className="bg-primary text-white dark:bg-primary px-md md:px-lg py-sm rounded-lg font-body-lg text-body-md md:text-body-lg active:scale-95 transition-transform hover:bg-primary/90 shadow-md shadow-primary/20"
+            className={`bg-primary text-white dark:bg-primary rounded-lg font-body-lg active:scale-95 transition-all duration-700 ease-in-out hover:bg-primary/90 shadow-md shadow-primary/20 ${
+              isScrolled ? 'px-sm md:px-md py-1.5' : 'px-md md:px-lg py-sm'
+            }`}
           >
             Download APK
           </a>
