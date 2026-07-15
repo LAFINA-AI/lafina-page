@@ -79,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
 
           {/* Download Beta Button */}
           <a
-            href="#download"
+            href="https://github.com/LAFINA-AI/LAFINA/releases/download/v0.2.0-beta/lafina_v0.2.0_beta.apk"
             className="bg-primary text-white dark:bg-primary px-md md:px-lg py-sm rounded-lg font-body-lg text-body-md md:text-body-lg active:scale-95 transition-transform hover:bg-primary/90 shadow-md shadow-primary/20"
           >
             Download APK
