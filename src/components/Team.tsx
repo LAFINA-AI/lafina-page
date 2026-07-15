@@ -18,31 +18,31 @@ export const Team: React.FC = () => {
 
   const members: Member[] = [
     {
-      name: "Angelo",
+      name: "John Michael Angelo C. Binonggo ", 
       role: "Chief Executive Officer",
       image: angeloImg,
       initials: "A"
     },
     {
-      name: "Lemar",
+      name: "John Lemar L. Gonzalez",
       role: "Chief Technology Officer",
       image: lemarImg,
       initials: "L"
     },
     {
-      name: "Noel",
+      name: "Noel Jhumel G. Blanco",
       role: "Chief Innovation Officer",
       image: noelImg,
       initials: "N"
     },
     {
-      name: "Austin",
+      name: "Austin Dilan Datan",
       role: "Front End Developer",
       image: austinImg,
       initials: "AU"
     },
     {
-      name: "Finnah",
+      name: "Finnah Marie G. Bajas",
       role: "Technical Writer",
       image: finnahImg,
       initials: "F"
