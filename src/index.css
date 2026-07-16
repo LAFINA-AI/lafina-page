@@ -5,9 +5,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   body {
     @apply bg-background text-on-surface transition-colors duration-300;
+    overflow-x: hidden;
+    width: 100%;
   }
 }
 

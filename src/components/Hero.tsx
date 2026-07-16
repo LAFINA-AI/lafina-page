@@ -69,9 +69,9 @@ export const Hero: React.FC<HeroProps> = ({ onTryVoice }) => {
         </div>
 
         {/* Right Side: 3D phone screen showcase */}
-        <div className="lg:col-span-5 relative flex justify-center items-center h-[500px] md:h-[600px] hero-showcase-container pt-xxl lg:pt-0 reveal-scale">
+        <div className="lg:col-span-5 relative flex justify-center items-center h-[500px] md:h-[600px] hero-showcase-container pt-xxl lg:pt-0 reveal-scale overflow-x-hidden md:overflow-x-visible">
           {/* Main phone screen (Light mode view) */}
-          <div className="absolute w-[220px] md:w-[260px] aspect-[9/19] rounded-[2.5rem] border-8 border-slate-900 dark:border-slate-800 bg-slate-950 shadow-2xl overflow-hidden z-20 hero-showcase-card">
+          <div className="absolute w-[200px] sm:w-[220px] md:w-[260px] aspect-[9/19] rounded-[2.5rem] border-8 border-slate-900 dark:border-slate-800 bg-slate-950 shadow-2xl overflow-hidden z-20 hero-showcase-card">
             {/* Notch */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-900 rounded-b-xl z-20"></div>
             {/* Screen content */}
@@ -79,7 +79,7 @@ export const Hero: React.FC<HeroProps> = ({ onTryVoice }) => {
           </div>
 
           {/* Secondary phone screen (Light mode view - overlapping slightly offset) */}
-          <div className="absolute w-[180px] md:w-[220px] aspect-[9/19] rounded-[2rem] border-6 border-slate-900 dark:border-slate-800 bg-slate-950 shadow-2xl overflow-hidden z-10 left-6 bottom-4 md:left-12 md:bottom-8 opacity-75 transform -rotate-12 transition-transform duration-500 hover:z-30 hover:opacity-100 hover:rotate-0 hover:scale-105">
+          <div className="absolute w-[150px] sm:w-[180px] md:w-[220px] aspect-[9/19] rounded-[2rem] border-6 border-slate-900 dark:border-slate-800 bg-slate-950 shadow-2xl overflow-hidden z-10 left-2 sm:left-6 md:left-12 bottom-4 md:bottom-8 opacity-75 transform -rotate-12 transition-transform duration-500 hover:z-30 hover:opacity-100 hover:rotate-0 hover:scale-105">
             {/* Notch */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-3 bg-slate-900 rounded-b-lg z-40"></div>
             {/* Dark casing overlay to cover the embedded white bezel in the image */}
@@ -89,7 +89,7 @@ export const Hero: React.FC<HeroProps> = ({ onTryVoice }) => {
           </div>
 
           {/* Tertiary phone screen (Light mode view - overlapping symmetrically on the right) */}
-          <div className="absolute w-[180px] md:w-[220px] aspect-[9/19] rounded-[2rem] border-6 border-slate-900 dark:border-slate-800 bg-slate-950 shadow-2xl overflow-hidden z-10 right-6 bottom-4 md:right-12 md:bottom-8 opacity-75 transform rotate-12 transition-transform duration-500 hover:z-30 hover:opacity-100 hover:rotate-0 hover:scale-105">
+          <div className="absolute w-[150px] sm:w-[180px] md:w-[220px] aspect-[9/19] rounded-[2rem] border-6 border-slate-900 dark:border-slate-800 bg-slate-950 shadow-2xl overflow-hidden z-10 right-2 sm:right-6 md:right-12 bottom-4 md:bottom-8 opacity-75 transform rotate-12 transition-transform duration-500 hover:z-35 hover:opacity-100 hover:rotate-0 hover:scale-105">
             {/* Notch */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-3 bg-slate-900 rounded-b-lg z-40"></div>
             {/* Dark casing overlay to cover the embedded white bezel in the image */}
@@ -97,8 +97,6 @@ export const Hero: React.FC<HeroProps> = ({ onTryVoice }) => {
             {/* Screen content */}
             <img src={noteScreen} alt="LAFINA note view" className="w-full h-full object-cover scale-100" />
           </div>
-
-
         </div>
 
       </div>
