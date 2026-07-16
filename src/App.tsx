@@ -7,7 +7,6 @@ import { Team } from './components/Team';
 import { Footer } from './components/Footer';
 import { VoiceDemo } from './components/VoiceDemo';
 import { PolicyModal } from './components/PolicyModal';
-import ScrollReveal from 'scrollreveal';
 import './App.css';
 
 function App() {
@@ -21,64 +20,75 @@ function App() {
       return;
     }
 
-    const sr = ScrollReveal({
-      origin: 'bottom',
-      distance: '40px',
-      duration: 1000,
-      delay: 200,
-      opacity: 0,
-      scale: 1,
-      easing: 'cubic-bezier(0.5, 0, 0, 1)',
-      mobile: true,
-      reset: false,
-      viewFactor: 0.1,
-      cleanup: true,
-    });
+    let srInstance: any = null;
 
-    // Simple fade reveal
-    sr.reveal('.reveal-fade', {
-      distance: '0px',
-      duration: 850,
-      delay: 150
-    });
+    import('scrollreveal').then((module) => {
+      const ScrollReveal = module.default;
+      const sr = ScrollReveal({
+        origin: 'bottom',
+        distance: '40px',
+        duration: 1000,
+        delay: 200,
+        opacity: 0,
+        scale: 1,
+        easing: 'cubic-bezier(0.5, 0, 0, 1)',
+        mobile: true,
+        reset: false,
+        viewFactor: 0.1,
+        cleanup: true,
+      });
 
-    // Bottom slide reveal
-    sr.reveal('.reveal-bottom', {
-      origin: 'bottom',
-      distance: '40px',
-      duration: 1000
-    });
+      // Simple fade reveal
+      sr.reveal('.reveal-fade', {
+        distance: '0px',
+        duration: 850,
+        delay: 150
+      });
 
-    // Left slide reveal
-    sr.reveal('.reveal-left', {
-      origin: 'left',
-      distance: '40px',
-      duration: 1000
-    });
+      // Bottom slide reveal
+      sr.reveal('.reveal-bottom', {
+        origin: 'bottom',
+        distance: '40px',
+        duration: 1000
+      });
 
-    // Right slide reveal
-    sr.reveal('.reveal-right', {
-      origin: 'right',
-      distance: '40px',
-      duration: 1000
-    });
+      // Left slide reveal
+      sr.reveal('.reveal-left', {
+        origin: 'left',
+        distance: '40px',
+        duration: 1000
+      });
 
-    // Zoom / Scale reveal
-    sr.reveal('.reveal-scale', {
-      scale: 0.95,
-      duration: 1000,
-      distance: '0px'
-    });
+      // Right slide reveal
+      sr.reveal('.reveal-right', {
+        origin: 'right',
+        distance: '40px',
+        duration: 1000
+      });
 
-    // Stagger/sequence reveal for list / grids
-    sr.reveal('.reveal-stagger', {
-      origin: 'bottom',
-      distance: '30px',
-      duration: 800,
-    }, 150);
+      // Zoom / Scale reveal
+      sr.reveal('.reveal-scale', {
+        scale: 0.95,
+        duration: 1000,
+        distance: '0px'
+      });
+
+      // Stagger/sequence reveal for list / grids
+      sr.reveal('.reveal-stagger', {
+        origin: 'bottom',
+        distance: '30px',
+        duration: 800,
+      }, 150);
+
+      srInstance = sr;
+    }).catch(err => {
+      console.warn("Failed to load ScrollReveal dynamically:", err);
+    });
 
     return () => {
-      sr.destroy();
+      if (srInstance) {
+        srInstance.destroy();
+      }
     };
   }, []);
 

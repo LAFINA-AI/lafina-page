@@ -1,62 +1,57 @@
-import { preview } from 'vite';
-import puppeteer from 'puppeteer';
+import { build } from 'vite';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function prerender() {
-  console.log('Starting pre-rendering preview server...');
+  console.log('Running Vite SSR build...');
   
-  // Start the Vite preview server programmatically
-  const previewServer = await preview({
-    preview: {
-      port: 3000,
-      host: 'localhost'
+  // Build the SSR bundle programmatically
+  await build({
+    build: {
+      ssr: 'src/entry-server.tsx',
+      outDir: 'dist-server',
+      emptyOutDir: true,
     }
   });
 
-  // Get the address to visit
-  const address = previewServer.resolvedUrls.local[0] || 'http://localhost:3000/';
-  console.log(`Preview server started at ${address}`);
-
-  console.log('Launching headless browser...');
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
+  console.log('Importing server render function...');
+  const serverBundlePath = path.resolve(__dirname, '../dist-server/entry-server.js');
+  const serverBundleUrl = pathToFileURL(serverBundlePath).href;
   
-  const page = await browser.newPage();
+  // Import the render function from the generated SSR bundle
+  const { render } = await import(serverBundleUrl);
 
-  // Set the window flag to tell the React app this is a pre-render session
-  await page.evaluateOnNewDocument(() => {
-    window.isPrerender = true;
-  });
+  console.log('Rendering application to string...');
+  const { html: renderedHtml } = render();
 
-  console.log(`Navigating to ${address}...`);
-  await page.goto(address, { waitUntil: 'networkidle0', timeout: 30000 });
-
-  // Wait a small extra cushion to ensure rendering complete
-  await new Promise(resolve => setTimeout(resolve, 1500));
-
-  console.log('Extracting page HTML content...');
-  const html = await page.content();
-
-  // Clean up browser and preview server
-  await browser.close();
-  await previewServer.close();
-
-  // Save the pre-rendered HTML back to dist/index.html
-  const distPath = path.resolve(__dirname, '../dist/index.html');
-  
-  if (!fs.existsSync(distPath)) {
-    throw new Error(`Build output file does not exist at ${distPath}. Did you run "vite build" first?`);
+  // Read the client build index.html
+  const distIndexHtmlPath = path.resolve(__dirname, '../dist/index.html');
+  if (!fs.existsSync(distIndexHtmlPath)) {
+    throw new Error(`Client build index.html not found at ${distIndexHtmlPath}. Make sure standard "vite build" runs first.`);
   }
 
-  fs.writeFileSync(distPath, html, 'utf-8');
-  console.log(`Successfully pre-rendered page and overwrote ${distPath}`);
+  let indexHtml = fs.readFileSync(distIndexHtmlPath, 'utf-8');
+
+  // Inject the pre-rendered HTML into the root div
+  console.log('Injecting pre-rendered HTML into index.html...');
+  const rootDivSearch = '<div id="root"></div>';
+  if (!indexHtml.includes(rootDivSearch)) {
+    throw new Error('Could not find <div id="root"></div> in dist/index.html');
+  }
+
+  indexHtml = indexHtml.replace(rootDivSearch, `<div id="root">${renderedHtml}</div>`);
+
+  // Save the result back to dist/index.html
+  fs.writeFileSync(distIndexHtmlPath, indexHtml, 'utf-8');
+  console.log(`Successfully pre-rendered HTML and saved to ${distIndexHtmlPath}`);
+
+  // Clean up the temporary dist-server directory
+  console.log('Cleaning up temporary dist-server build files...');
+  fs.rmSync(path.resolve(__dirname, '../dist-server'), { recursive: true, force: true });
 }
 
 prerender().catch(err => {
