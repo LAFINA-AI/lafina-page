@@ -16,6 +16,11 @@ function App() {
   const [policyType, setPolicyType] = useState<'privacy' | 'terms'>('privacy');
 
   useEffect(() => {
+    // Skip scroll reveal during SSG pre-rendering so that text isn't hidden (opacity 0) in the static HTML file
+    if ((window as any).isPrerender) {
+      return;
+    }
+
     const sr = ScrollReveal({
       origin: 'bottom',
       distance: '40px',
