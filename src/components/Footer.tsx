@@ -1,6 +1,7 @@
 import React from 'react';
 import lafinaLogo from '../assets/lafina_logo.svg';
 import { Soundwave } from './Soundwave';
+import { DOWNLOAD_URL, DISPLAY_VERSION } from '../config';
 
 interface FooterProps {
   onOpenPolicy: (type: 'privacy' | 'terms') => void;
@@ -31,11 +32,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
             {/* Beta APK Download Container (for the #download anchor) */}
             <div className="pt-sm w-full">
               <a 
-                href="https://github.com/LAFINA-AI/LAFINA/releases/download/v0.2.0-beta/lafina_v0.2.0_beta.apk" 
+                href={DOWNLOAD_URL} 
                 className="inline-flex items-center gap-sm bg-white text-slate-950 px-lg py-sm rounded-lg font-bold text-caption uppercase hover:bg-slate-200 transition-colors shadow-lg active:scale-95"
               >
                 <span className="material-symbols-outlined text-[16px]">download</span>
-                Download Beta v0.2.0 APK
+                Download Beta {DISPLAY_VERSION} APK
               </a>
               <span className="block text-[9px] text-slate-500 mt-2 font-mono">Requires Android 10+ | Size: ~672MB</span>
             </div>

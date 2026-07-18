@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import lafinaLogo from '../assets/lafina_logo.svg';
+import { DOWNLOAD_URL } from '../config';
 
 interface HeaderProps {
   onTryVoice: () => void;
@@ -112,7 +113,7 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
 
           {/* Download Beta Button */}
           <a
-            href="https://github.com/LAFINA-AI/LAFINA/releases/download/v0.2.0-beta/lafina_v0.2.0_beta.apk"
+            href={DOWNLOAD_URL}
             className={`bg-primary text-white dark:bg-primary rounded-lg font-body-lg active:scale-95 transition-all duration-700 ease-in-out hover:bg-primary/90 shadow-md shadow-primary/20 ${
               isScrolled ? 'px-sm md:px-md py-1.5' : 'px-md md:px-lg py-sm'
             }`}

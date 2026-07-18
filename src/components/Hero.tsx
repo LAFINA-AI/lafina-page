@@ -4,6 +4,7 @@ import calendarDayScreen from '../assets/calendar_day_screem.png';
 import chatScreen from '../assets/chat_screen.png';
 import noteScreen from '../assets/note_screen.png';
 import { Soundwave } from './Soundwave';
+import { DOWNLOAD_URL } from '../config';
 
 interface HeroProps {
   onTryVoice: () => void;
@@ -42,7 +43,7 @@ export const Hero: React.FC<HeroProps> = ({ onTryVoice }) => {
           <div className="flex flex-col sm:flex-row items-center gap-lg pt-md w-full sm:w-auto reveal-stagger">
             {/* Download Button */}
             <a 
-              href="https://github.com/LAFINA-AI/LAFINA/releases/download/v0.2.0-beta/lafina_v0.2.0_beta.apk"
+              href={DOWNLOAD_URL}
               className="w-full sm:w-auto bg-primary text-white px-xxxl py-lg rounded-xl font-bold shadow-xl hover:shadow-2xl hover:bg-primary/95 transition-all active:scale-95 flex items-center justify-center gap-sm"
             >
               <span className="material-symbols-outlined">download</span>

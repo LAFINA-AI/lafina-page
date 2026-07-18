@@ -7,6 +7,7 @@ import { Team } from './components/Team';
 import { Footer } from './components/Footer';
 import { VoiceDemo } from './components/VoiceDemo';
 import { PolicyModal } from './components/PolicyModal';
+import { DOWNLOAD_URL, VERSION } from './config';
 import './App.css';
 
 function App() {
@@ -106,8 +107,30 @@ function App() {
     setIsPolicyOpen(true);
   };
 
+  const jsonLdSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "LAFINA",
+    "operatingSystem": "Android, iOS",
+    "applicationCategory": "Academic, Educational, Scheduling, Utilities",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "LAFINA is a voice-first, offline-first scheduling assistant for University students. It replaces passive notifications with simulated call reminders that require a spoken acknowledgment to dismiss.",
+    "downloadUrl": DOWNLOAD_URL,
+    "softwareVersion": VERSION
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950 transition-colors duration-300 overflow-x-hidden">
+      {/* Structured Data (JSON-LD Schema) for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
+      />
+
       {/* Navigation Header */}
       <Header onTryVoice={handleOpenVoiceDemo} />
 
