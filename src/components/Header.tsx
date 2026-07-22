@@ -7,16 +7,17 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
-  const [isDark, setIsDark] = useState<boolean>(false);
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark';
+    }
+    return false;
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
-    // Check if theme is explicitly set to dark in localStorage. Default to light.
-    const isDarkTheme = localStorage.getItem('theme') === 'dark';
-    
-    setIsDark(isDarkTheme);
-    if (isDarkTheme) {
+    if (isDark) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
@@ -37,7 +38,7 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isDark]);
 
   const toggleTheme = () => {
     if (isDark) {
@@ -68,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
       >
         
         {/* Brand Logo & Wordmark */}
-        <a href="#" className="hover:opacity-95 transition-opacity flex items-center">
+        <a href="/" className="hover:opacity-95 transition-opacity flex items-center">
           <img 
             src={lafinaLogo} 
             className={`object-contain transition-all duration-700 ease-in-out ${
@@ -80,9 +81,11 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-xxl">
-          <a href="#about" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Mission</a>
-          <a href="#roadmap" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Roadmap</a>
-          <a href="#team" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Team</a>
+          <a href="/#about" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Mission</a>
+          <a href="/#roadmap" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Roadmap</a>
+          <a href="/#team" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Team</a>
+          <a href="/compare" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Compare</a>
+          <a href="/faq" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">FAQ</a>
           <a href="https://lafina-wiki.vercel.app/" target="_blank" rel="noopener noreferrer" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Wiki</a>
         </nav>
 
@@ -136,25 +139,39 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
         <div className="md:hidden border-t border-border-light dark:border-slate-800 bg-white dark:bg-slate-950 p-lg space-y-md animate-fadeIn transition-colors duration-300">
           <nav className="flex flex-col gap-md">
             <a 
-              href="#about" 
+              href="/#about" 
               onClick={() => setMobileMenuOpen(false)}
               className="font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
             >
               Mission
             </a>
             <a 
-              href="#roadmap" 
+              href="/#roadmap" 
               onClick={() => setMobileMenuOpen(false)}
               className="font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
             >
               Roadmap
             </a>
             <a 
-              href="#team" 
+              href="/#team" 
               onClick={() => setMobileMenuOpen(false)}
               className="font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
             >
               Team
+            </a>
+            <a 
+              href="/compare" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
+            >
+              Compare
+            </a>
+            <a 
+              href="/faq" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
+            >
+              FAQ
             </a>
             <a 
               href="https://lafina-wiki.vercel.app/" 
