@@ -11,6 +11,7 @@ import { TermsPage } from './components/TermsPage';
 import { FAQPage } from './components/FAQPage';
 import { FeedbackPage } from './components/FeedbackPage';
 import { ComparePage } from './components/ComparePage';
+import { BusinessPage } from './components/BusinessPage';
 import { DOWNLOAD_URL, VERSION } from './config';
 import './App.css';
 
@@ -180,6 +181,8 @@ function App() {
           <FeedbackPage />
         ) : path === '/compare' ? (
           <ComparePage />
+        ) : path === '/business' ? (
+          <BusinessPage />
         ) : path === '/' || path === '' ? (
           <>
             <Hero onTryVoice={handleOpenVoiceDemo} />

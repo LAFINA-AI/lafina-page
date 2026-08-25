@@ -85,6 +85,10 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
           <a href="/#roadmap" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Roadmap</a>
           <a href="/#team" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Team</a>
           <a href="/compare" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Compare</a>
+          <a href="/business" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200 flex items-center gap-xs">
+            Business
+            <span className="inline-block px-[6px] py-[2px] text-[9px] font-bold uppercase tracking-wider bg-primary/10 dark:bg-honey-gold/20 text-primary dark:text-honey-gold rounded-full leading-none">New</span>
+          </a>
           <a href="/faq" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">FAQ</a>
           <a href="https://lafina-wiki.vercel.app/" target="_blank" rel="noopener noreferrer" className="nav-link font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold transition-colors duration-200">Wiki</a>
         </nav>
@@ -165,6 +169,14 @@ export const Header: React.FC<HeaderProps> = ({ onTryVoice }) => {
               className="font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
             >
               Compare
+            </a>
+            <a 
+              href="/business" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-honey-gold py-sm border-b border-border-light dark:border-slate-900"
+            >
+              Business
+              <span className="inline-block px-[6px] py-[2px] text-[9px] font-bold uppercase tracking-wider bg-primary/10 dark:bg-honey-gold/20 text-primary dark:text-honey-gold rounded-full leading-none">New</span>
             </a>
             <a 
               href="/faq" 

@@ -44,6 +44,10 @@ export const Footer: React.FC = () => {
             {/* Column 1: Explore */}
             <div className="flex flex-col items-center md:items-start gap-sm">
               <span className="font-label-caps text-label-caps text-white/40 uppercase tracking-widest font-bold">Explore</span>
+              <a href="/business" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400 flex items-center gap-xs">
+                Business
+                <span className="inline-block px-[5px] py-[1px] text-[8px] font-bold uppercase tracking-wider bg-primary/20 dark:bg-honey-gold/20 text-primary dark:text-honey-gold rounded-full leading-none">New</span>
+              </a>
               <a href="/compare" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">Compare</a>
               <a href="/faq" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">FAQ</a>
               <a href="/feedback" className="hover:text-primary dark:hover:text-honey-gold transition-colors text-body-md text-slate-400">Feedback</a>
