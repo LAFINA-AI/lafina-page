@@ -7,7 +7,12 @@ import { Roadmap } from './components/Roadmap';
 import { Team } from './components/Team';
 import { Footer } from './components/Footer';
 import { VoiceDemo } from './components/VoiceDemo';
-import { PolicyModal } from './components/PolicyModal';
+import { PrivacyPage } from './components/PrivacyPage';
+import { TermsPage } from './components/TermsPage';
+import { FAQPage } from './components/FAQPage';
+import { FeedbackPage } from './components/FeedbackPage';
+import { ComparePage } from './components/ComparePage';
+import { BusinessPage } from './components/BusinessPage';
 import { DOWNLOAD_URL, VERSION } from './config';
 import './App.css';
 
@@ -15,15 +20,52 @@ function App() {
   const [introVisible, setIntroVisible] = useState(true);
   const completeIntro = useCallback(() => setIntroVisible(false), []);
   const [isVoiceDemoOpen, setIsVoiceDemoOpen] = useState<boolean>(false);
-  const [isPolicyOpen, setIsPolicyOpen] = useState<boolean>(false);
-  const [policyType, setPolicyType] = useState<'privacy' | 'terms'>('privacy');
+  const [path, setPath] = useState(typeof window !== 'undefined' ? window.location.pathname : '/');
 
   useEffect(() => {
+    const handleLocationChange = () => setPath(window.location.pathname);
+    window.addEventListener('popstate', handleLocationChange);
+    
+    const handleLinkClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a');
+      if (target && target.href) {
+        try {
+          const url = new URL(target.href);
+          if (
+            url.origin === window.location.origin && 
+            !target.target && 
+            !(url.pathname === window.location.pathname && url.hash)
+          ) {
+            e.preventDefault();
+            window.history.pushState({}, '', url.pathname + url.hash);
+            setPath(url.pathname);
+            if (!url.hash) {
+              window.scrollTo(0, 0);
+            } else {
+              setTimeout(() => {
+                const el = document.getElementById(url.hash.slice(1));
+                if (el) el.scrollIntoView();
+              }, 100);
+            }
+          }
+        } catch {
+          // ignore invalid URLs
+        }
+      }
+    };
+    
+    document.addEventListener('click', handleLinkClick);
     // Skip scroll reveal during SSG pre-rendering so that text isn't hidden (opacity 0) in the static HTML file
+<<<<<<< HEAD
     if (introVisible || (window as any).isPrerender) {
+=======
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((window as any).isPrerender) {
+>>>>>>> 8409b9dfbd039ffe3def66594cf188999662ff07
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let srInstance: any = null;
 
     import('scrollreveal').then((module) => {
@@ -85,14 +127,16 @@ function App() {
       }, 150);
 
       srInstance = sr;
-    }).catch(err => {
-      console.warn("Failed to load ScrollReveal dynamically:", err);
+    }).catch(() => {
+      console.warn("Failed to load ScrollReveal dynamically");
     });
 
     return () => {
       if (srInstance) {
         srInstance.destroy();
       }
+      window.removeEventListener('popstate', handleLocationChange);
+      document.removeEventListener('click', handleLinkClick);
     };
   }, [introVisible]);
 
@@ -103,11 +147,6 @@ function App() {
 
   const handleCloseVoiceDemo = () => {
     setIsVoiceDemoOpen(false);
-  };
-
-  const handleOpenPolicy = (type: 'privacy' | 'terms') => {
-    setPolicyType(type);
-    setIsPolicyOpen(true);
   };
 
   const jsonLdSchema = {
@@ -141,27 +180,44 @@ function App() {
 
       {/* Main Sections */}
       <main className="flex-grow">
-        {/* Hero Section */}
-        <Hero onTryVoice={handleOpenVoiceDemo} />
-
-        {/* About / Mission Section */}
-        <About />
-
-        {/* Roadmap / Timeline Section */}
-        <Roadmap />
-
-        {/* Team Grid Section */}
-        <Team />
+        {path === '/privacy' ? (
+          <PrivacyPage />
+        ) : path === '/terms' ? (
+          <TermsPage />
+        ) : path === '/faq' ? (
+          <FAQPage />
+        ) : path === '/feedback' ? (
+          <FeedbackPage />
+        ) : path === '/compare' ? (
+          <ComparePage />
+        ) : path === '/business' ? (
+          <BusinessPage />
+        ) : path === '/' || path === '' ? (
+          <>
+            <Hero onTryVoice={handleOpenVoiceDemo} />
+            <About />
+            <Roadmap />
+            <Team />
+          </>
+        ) : (
+          <div className="flex-grow flex items-center justify-center py-xxxl text-center mt-20">
+            <div className="max-w-md mx-auto px-lg">
+              <h1 className="text-6xl font-headline-lg font-bold text-primary mb-md">404</h1>
+              <h2 className="text-2xl font-headline-md font-bold text-slate-900 dark:text-white mb-lg">Page not found</h2>
+              <p className="text-slate-600 dark:text-slate-400 font-body-lg mb-xl">Sorry, we couldn't find the page you're looking for.</p>
+              <a href="/" className="inline-flex items-center justify-center bg-primary text-white font-bold px-xl py-md rounded-xl hover:bg-primary/90 transition-transform hover:scale-105 active:scale-95 shadow-md">
+                Go back home
+              </a>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
-      <Footer onOpenPolicy={handleOpenPolicy} />
+      <Footer />
 
       {/* Interactive Voice Call Simulation Modal */}
       <VoiceDemo isOpen={isVoiceDemoOpen} onClose={handleCloseVoiceDemo} />
-
-      {/* Policy & Terms Modal */}
-      <PolicyModal isOpen={isPolicyOpen} onClose={() => setIsPolicyOpen(false)} type={policyType} />
     </div>
     </>
   );

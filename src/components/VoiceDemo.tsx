@@ -18,13 +18,15 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
   );
   const [isMuted, setIsMuted] = useState(false);
   const [timer, setTimer] = useState<number>(0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const timerIntervalRef = useRef<any>(null);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const ringtoneRef = useRef<HTMLAudioElement | null>(null);
 
-  const playRingtone = () => {
+  function playRingtone() {
     if (!ringtoneRef.current) {
       ringtoneRef.current = new Audio(ringtoneAudio);
       ringtoneRef.current.loop = true;
@@ -33,16 +35,16 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
     ringtoneRef.current.play().catch(err => {
       console.warn("Failed to play ringtone:", err);
     });
-  };
+  }
 
-  const stopRingtone = () => {
+  function stopRingtone() {
     if (ringtoneRef.current) {
       ringtoneRef.current.pause();
       ringtoneRef.current.currentTime = 0;
     }
-  };
+  }
 
-  const playSampleAudio = () => {
+  function playSampleAudio() {
     if (!audioRef.current) {
       audioRef.current = new Audio(lafinaSampleAudio);
     }
@@ -55,20 +57,18 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
 
     audioRef.current.play().catch(err => {
       console.warn("Failed to play audio sample:", err);
-      // Fallback to speech synthesis if autoplay or browser blocks it
       speakText(speechText);
     });
-  };
+  }
 
-  const stopSampleAudio = () => {
+  function stopSampleAudio() {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
-  };
+  }
 
-  // Sound effects or voice synthesis
-  const speakText = (text: string, onEndCallback?: () => void) => {
+  function speakText(text: string, onEndCallback?: () => void) {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
@@ -85,7 +85,6 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
       
       window.speechSynthesis.speak(utterance);
     } else {
-      // Fallback if Speech Synthesis is not supported
       setTimeout(() => {
         if (onEndCallback) {
           onEndCallback();
@@ -94,10 +93,11 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
         }
       }, 3000);
     }
-  };
+  }
 
   useEffect(() => {
     if (isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCallState('ringing');
       setTranscription('');
       setTimer(0);
@@ -146,9 +146,10 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
     }
   }, [callState]);
 
-  const startListening = () => {
+  function startListening() {
     // Attempt to use Web Speech API
     const SpeechRecognition =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
     if (SpeechRecognition) {
@@ -158,6 +159,7 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
         recognition.interimResults = false;
         recognition.lang = 'en-US';
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         recognition.onresult = (event: any) => {
           const resultText = event.results[0][0].transcript.toLowerCase();
           setTranscription(resultText);
@@ -181,15 +183,15 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
 
         recognition.start();
         recognitionRef.current = recognition;
-      } catch (e) {
+      } catch {
         simulateSpeechTyping();
       }
     } else {
       simulateSpeechTyping();
     }
-  };
+  }
 
-  const simulateSpeechTyping = () => {
+  function simulateSpeechTyping() {
     // If no mic / browser support, simulate student speaking
     const phrases = ['I am on it...', 'Acknowledge', 'Snooze that...'];
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
@@ -213,16 +215,18 @@ export const VoiceDemo: React.FC<VoiceDemoProps> = ({ isOpen, onClose }) => {
         }, 1200);
       }
     }, 100);
-  };
+  }
 
-  const stopListening = () => {
+  function stopListening() {
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
-      } catch (e) {}
+      } catch {
+        // ignore errors if stopping fails
+      }
       recognitionRef.current = null;
     }
-  };
+  }
 
   const handleAcceptCall = () => {
     stopRingtone();
