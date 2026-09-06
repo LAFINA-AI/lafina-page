@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { Intro } from './components/Intro';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -11,13 +12,15 @@ import { DOWNLOAD_URL, VERSION } from './config';
 import './App.css';
 
 function App() {
+  const [introVisible, setIntroVisible] = useState(true);
+  const completeIntro = useCallback(() => setIntroVisible(false), []);
   const [isVoiceDemoOpen, setIsVoiceDemoOpen] = useState<boolean>(false);
   const [isPolicyOpen, setIsPolicyOpen] = useState<boolean>(false);
   const [policyType, setPolicyType] = useState<'privacy' | 'terms'>('privacy');
 
   useEffect(() => {
     // Skip scroll reveal during SSG pre-rendering so that text isn't hidden (opacity 0) in the static HTML file
-    if ((window as any).isPrerender) {
+    if (introVisible || (window as any).isPrerender) {
       return;
     }
 
@@ -91,7 +94,7 @@ function App() {
         srInstance.destroy();
       }
     };
-  }, []);
+  }, [introVisible]);
 
 
   const handleOpenVoiceDemo = () => {
@@ -124,7 +127,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950 transition-colors duration-300 overflow-x-hidden">
+    <>
+    {introVisible && <Intro onComplete={completeIntro} />}
+    <div className="website-content min-h-screen flex flex-col bg-white dark:bg-slate-950 transition-colors duration-300 overflow-x-hidden">
       {/* Structured Data (JSON-LD Schema) for SEO */}
       <script
         type="application/ld+json"
@@ -158,6 +163,7 @@ function App() {
       {/* Policy & Terms Modal */}
       <PolicyModal isOpen={isPolicyOpen} onClose={() => setIsPolicyOpen(false)} type={policyType} />
     </div>
+    </>
   );
 }
 
