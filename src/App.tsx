@@ -56,12 +56,8 @@ function App() {
     
     document.addEventListener('click', handleLinkClick);
     // Skip scroll reveal during SSG pre-rendering so that text isn't hidden (opacity 0) in the static HTML file
-<<<<<<< HEAD
-    if (introVisible || (window as any).isPrerender) {
-=======
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if ((window as any).isPrerender) {
->>>>>>> 8409b9dfbd039ffe3def66594cf188999662ff07
+    if (introVisible || (window as any).isPrerender) {
       return;
     }
 
