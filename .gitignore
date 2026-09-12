@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 .playwright-cli
 output
+# Source-quality desktop demo recording (224 MB, 1440p60) — exceeds GitHub's
+# 100 MB file limit. The web-optimised encode next to it IS committed and is
+# what the site ships; keep this master locally or in external storage.
+src/assets/desktop_app/lafina_web_v1.1.0_demo.mp4

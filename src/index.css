@@ -139,3 +139,31 @@
 .nav-link:hover::after {
   transform: scaleX(1);
 }
+
+/* ── Circular-reveal theme switch (View Transitions API) ──────────────────── */
+
+/* Kill the browser's default cross-fade: the new snapshot is revealed by the
+   growing clip-path circle driven from Header.tsx instead. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Old theme stays put underneath while the new one wipes in over it. */
+::view-transition-old(root) {
+  z-index: 0;
+}
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* While the wipe is running, suppress the per-element colour transitions so the
+   circle's edge reads as one clean boundary instead of a mushy gradient.
+   Under prefers-reduced-motion Header.tsx skips the view transition entirely,
+   so nothing here applies and the theme just swaps. */
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+}

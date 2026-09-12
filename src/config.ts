@@ -12,3 +12,12 @@ export const VERSION = (() => {
 
 // Clean version string for display (e.g., "v0.3.0-beta" -> "v0.3.0")
 export const DISPLAY_VERSION = VERSION.replace(/-beta$/, '');
+
+/**
+ * LAFINA Desktop (Windows) — see /desktop.
+ * DESKTOP_DOWNLOAD_URL points at the GitHub releases list; swap it for the
+ * direct installer asset URL once a desktop build is published.
+ */
+export const DESKTOP_DOWNLOAD_URL = "https://github.com/LAFINA-AI/LAFINA/releases";
+
+export const DESKTOP_VERSION = "v1.1.0";

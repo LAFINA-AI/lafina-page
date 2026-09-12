@@ -13,6 +13,7 @@ import { FAQPage } from './components/FAQPage';
 import { FeedbackPage } from './components/FeedbackPage';
 import { ComparePage } from './components/ComparePage';
 import { BusinessPage } from './components/BusinessPage';
+import { DesktopPage } from './components/DesktopPage';
 import { DOWNLOAD_URL, VERSION } from './config';
 import './App.css';
 
@@ -188,6 +189,8 @@ function App() {
           <ComparePage />
         ) : path === '/business' ? (
           <BusinessPage />
+        ) : path === '/desktop' ? (
+          <DesktopPage />
         ) : path === '/' || path === '' ? (
           <>
             <Hero onTryVoice={handleOpenVoiceDemo} />
